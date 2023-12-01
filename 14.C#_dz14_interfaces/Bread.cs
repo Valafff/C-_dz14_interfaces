@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _14.C__dz14_interfaces
 {
-	internal class Bread : Goods, IFood, IBredDepartment
+	internal class Bread : Goods, IFood, IBredDepartment, ICloneable, IComparable
 	{
 		public int Calorie { get; set; }
 		public string Breadtype { get; set; }
@@ -64,6 +64,12 @@ namespace _14.C__dz14_interfaces
 			Console.WriteLine($"Артикул: {id} Название товара: {Name} Название хлеба: {Breadtype} Цена товара: {Price} руб. Кол-во на складе: {TotalCount} шт.\nПищевая ценность: {Calorie} ккал. Дата изготовления: {ManufactureDate.ToShortDateString()} Срок годности до: {ExperationDate.ToShortDateString()}");
 		}
 
-
+		public object Clone()
+		{
+			Bread newBread = (Bread)this.MemberwiseClone();
+			newBread.id = ID;
+			ID++;
+			return newBread;
+		}
 	}
 }

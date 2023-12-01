@@ -44,8 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bread.cs" />
+    <Compile Include="CaloriSort.cs" />
+    <Compile Include="Feri.cs" />
     <Compile Include="Goods.cs" />
     <Compile Include="IBredDepartment.cs" />
+    <Compile Include="IDetergent.cs" />
     <Compile Include="IDomestics.cs" />
     <Compile Include="IFood.cs" />
     <Compile Include="IGardenChem.cs" />

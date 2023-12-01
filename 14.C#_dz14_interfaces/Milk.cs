@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace _14.C__dz14_interfaces
 {
-	internal class Milk : Goods, IFood, IMilkDepartment
+	internal class Milk : Goods, IFood, IMilkDepartment, IComparable
 	{
 		public int Calorie { get; set; }
 		public string Milktype { get; set; }

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace _14.C__dz14_interfaces
@@ -10,15 +12,16 @@ namespace _14.C__dz14_interfaces
 	{
 		static void Main(string[] args)
 		{
-			Menu market = new Menu(new List<string> { "Вывести все товары", "Вывести продукты питания", "Вывести бытовую химию", "Добавить продукты питания", "Добавить бытовую химию", "Продать товар", "Выход" });
+			Menu market = new Menu(new List<string> { "Вывести все товары", "Вывести продукты питания", "Вывести бытовую химию", "Добавить продукты питания", "Добавить бытовую химию", "Продать товар", "Отсортировать по сроку годности", "Создать копию класса \"Хлеб\"", "Выход" });
 			int index;
 
 			List<Goods> goods = new List<Goods> { };
 			goods.Add(new Bread("Хлеб", 45, 100, 300, "Пшеничный", DateTime.Now, DateTime.Now.AddDays(3)));
 			goods.Add(new Milk("Молочный продукт", 80, 100, 250, "Молоко", DateTime.Now, DateTime.Now.AddDays(10)));
 			goods.Add(new Meat("Мясной продукт", 500, 30, 900, "Вырезка", DateTime.Now, DateTime.Now.AddDays(5)));
-			goods.Add(new Soap("Мыло", 120, 90, "Домашняя химия", "Гигиена", DateTime.Now, DateTime.Now.AddDays(1095)));
+			goods.Add(new Soap("Мыло", 120, 90, "Бытовая химия", "Гигиена", DateTime.Now, DateTime.Now.AddDays(1095)));
 			goods.Add(new Insecticides("Антижук", 120, 90, "Садовая химия", "Отрава для вредителей", DateTime.Now, DateTime.Now.AddDays(730)));
+			goods.Add(new Feri("Feri", 150, 200, "Бытовая химия", "Моющте средства", DateTime.Now, DateTime.Now.AddDays(365)));
 
 			//Временные позиции
 			string tempName;
@@ -52,7 +55,7 @@ namespace _14.C__dz14_interfaces
 						//Вывод продуктов питания
 						foreach (Goods food in goods)
 						{
-							if (food is Bread||  food is Meat || food is Milk)
+							if (food is Bread || food is Meat || food is Milk)
 								food.Print();
 						}
 						break;
@@ -112,7 +115,7 @@ namespace _14.C__dz14_interfaces
 							tempExperationDate = Convert.ToInt32(Console.ReadLine());
 						}
 						while (tempExperationDate <= 0);
-						goods.Add(new Bread(tempName, tempPrice, tempCount,  tempCalorie, tempType_2, new DateTime(tempYearManufactureDate, tempMonthManufactureDate, tempDayManufactureDate), new DateTime(tempYearManufactureDate, tempMonthManufactureDate, tempDayManufactureDate).AddDays(tempExperationDate)));
+						goods.Add(new Bread(tempName, tempPrice, tempCount, tempCalorie, tempType_2, new DateTime(tempYearManufactureDate, tempMonthManufactureDate, tempDayManufactureDate), new DateTime(tempYearManufactureDate, tempMonthManufactureDate, tempDayManufactureDate).AddDays(tempExperationDate)));
 						break;
 					case 4:
 						//Добавление химии
@@ -188,7 +191,35 @@ namespace _14.C__dz14_interfaces
 							Console.WriteLine("Товар продан");
 						}
 						break;
+					//Отсортировать по сроку годности
 					case 6:
+						goods.Sort();
+						break;
+					//Создать копию товара
+					case 7:
+						do
+						{
+						//Прошу не закидывать тухлыми помидорами, не придумал как корректно повторить итерацию без захода в while (!(goods[tempIndex] is Bread))
+						start:
+							Console.Write("Введите артикул товара: ");
+							tempIndex = Convert.ToInt32(Console.ReadLine());
+							if (tempIndex < 0 || tempIndex >= goods.Count())
+							{
+								Console.WriteLine("Неверный артикул");
+								goto start;
+								//continue; Не работает
+							}
+						} while (!(goods[tempIndex] is Bread));
+
+						Bread br1 = (Bread)goods[0];
+						Bread br2 = (Bread)br1.Clone();
+						goods.Add(br2);
+						Console.WriteLine("Копия создана");
+
+						//Bread br2 = ((Bread)goods[0]).Clone();
+
+						break;
+					case 8:
 						index = -1;
 						break;
 					default:
@@ -198,6 +229,6 @@ namespace _14.C__dz14_interfaces
 
 		}
 
-	
+
 	}
 }

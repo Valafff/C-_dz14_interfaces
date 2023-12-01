@@ -8,24 +8,26 @@ using System.Xml.Linq;
 
 namespace _14.C__dz14_interfaces
 {
-	internal class Meat : Goods, IFood, IMeatDepartment, IComparable
+	internal class Feri : Goods, IDomestics, IDetergent
 	{
 
-		public int Calorie { get; set; }
-		public string MeatType { get; set; }
+		public string DomesticsChemType { get; set; }
+		public string DomesticsWashChemType { get; set; }
 
-		public Meat(string arg_name, double arg_price, int arg_count, int arg_calorie, string arg_Type, DateTime manufactureDate, DateTime experationDate)
+		public Feri(string arg_name, double arg_price, int arg_count, string arg_type, string arg_Domestic_type, DateTime manufactureDate, DateTime arg_GarrantyEndDate)
 		{
 			id = ID;
 			ID++;
 			Name = arg_name;
 			Price = arg_price;
 			TotalCount = arg_count;
-			Calorie = arg_calorie;
-			MeatType = arg_Type;
+			DomesticsWashChemType = arg_type;
+			DomesticsChemType = arg_Domestic_type;
 			ManufactureDate = manufactureDate;
-			ExperationDate = experationDate;
+			ExperationDate = arg_GarrantyEndDate;
 		}
+
+
 		public override void AddManData(DateTime arg_date)
 		{
 			ManufactureDate = arg_date;
@@ -64,9 +66,8 @@ namespace _14.C__dz14_interfaces
 		}
 		public override void Print()
 		{
-			Console.WriteLine($"Артикул: {id} Название товара: {Name} Название мясного продукта: {MeatType} Цена товара: {Price} руб. Кол-во на складе: {TotalCount} шт.\nПищевая ценность: {Calorie} ккал. Дата изготовления: {ManufactureDate.ToShortDateString()} Срок годности до: {ExperationDate.ToShortDateString()}");
+			Console.WriteLine($"Артикул: {id} Название товара: {Name} Назначение товара: {DomesticsWashChemType} Тип товара {DomesticsChemType} Цена товара: {Price} руб. Кол-во на складе: {TotalCount} шт. \nДата изг.: {ManufactureDate.ToShortDateString()}  Срок годности до: {ExperationDate.ToShortDateString()}");
 		}
-
 
 	}
 }
